@@ -1,0 +1,9 @@
+dummy:
+  server:
+    username:
+    hostname:
+    privateKey:
+    publicKey:
+  instance:
+    url:
+    jwtSecret:

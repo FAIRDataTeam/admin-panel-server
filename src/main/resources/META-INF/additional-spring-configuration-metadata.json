@@ -1,0 +1,54 @@
+{
+  "properties": [
+    {
+      "name": "security.jwt.token.secret-key",
+      "type": "java.lang.String",
+      "description": "Secret string used for JWT signing and validation (we recommend to generate some randomly)."
+    },
+    {
+      "name": "security.jwt.token.expiration",
+      "type": "java.lang.Long",
+      "description": "Number of days until a token expires."
+    },
+    {
+      "name": "security.adminEmail",
+      "type": "java.lang.String",
+      "description": "Email for default admin account."
+    },
+    {
+      "name": "security.adminPassword",
+      "type": "java.lang.String",
+      "description": "Password for default admin account."
+    },
+    {
+      "name": "dummy.server.username",
+      "type": "java.lang.String",
+      "description": "Dummy Server Username is used for initial database setup in 'development' mode"
+    },
+    {
+      "name": "dummy.server.hostname",
+      "type": "java.lang.String",
+      "description": "Dummy Hostname Username is used for initial database setup in 'development' mode"
+    },
+    {
+      "name": "dummy.server.privateKey",
+      "type": "java.lang.String",
+      "description": "Dummy Private Key Username is used for initial database setup in 'development' mode"
+    },
+    {
+      "name": "dummy.server.publicKey",
+      "type": "java.lang.String",
+      "description": "Dummy Public Key Username is used for initial database setup in 'development' mode"
+    },
+    {
+      "name": "dummy.instance.url",
+      "type": "java.lang.String",
+      "description": "Dummy Instance URL is used for initial database setup in 'development' mode"
+    },
+    {
+      "name": "dummy.instance.jwtSecret",
+      "type": "java.lang.String",
+      "description": "Dummy Instance JWT Secret is used for initial database setup in 'development' mode"
+    }
+  ]
+}
