@@ -27,8 +27,8 @@ public class InstanceDTO {
 
     private Map<String, Object> variables;
 
-    private ApplicationSimpleDTO application;
+    private String applicationUuid;
 
-    private ServerSimpleDTO server;
+    private String serverUuid;
 
 }

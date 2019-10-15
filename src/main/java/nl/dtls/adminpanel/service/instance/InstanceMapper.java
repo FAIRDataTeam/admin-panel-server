@@ -29,8 +29,8 @@ public class InstanceMapper {
             instance.getPath(),
             status,
             instance.getVariables(),
-            applicationMapper.toSimpleDTO(instance.getApplication()),
-            serverMapper.toSimpleDTO(instance.getServer())
+            instance.getApplication().getUuid(),
+            instance.getServer().getUuid()
         );
     }
 
