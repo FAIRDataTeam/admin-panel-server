@@ -28,13 +28,13 @@ public class InstanceController {
     private InstanceService instanceService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public HttpEntity getInstances() {
+    public ResponseEntity<List<InstanceDTO>> getInstances() {
         List<InstanceDTO> dto = instanceService.getInstances();
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public HttpEntity createInstance(@RequestParam(required = false) String source,
+    public ResponseEntity<InstanceDTO> createInstance(@RequestParam(required = false) String source,
         @RequestBody(required = false) @Valid InstanceChangeDTO reqDto) {
         if (source == null) {
             InstanceDTO dto = instanceService.createInstance(reqDto);
@@ -50,7 +50,7 @@ public class InstanceController {
     }
 
     @RequestMapping(value = "/{uuid}", method = RequestMethod.GET)
-    public HttpEntity getInstance(@PathVariable final String uuid)
+    public ResponseEntity<InstanceDTO> getInstance(@PathVariable final String uuid)
         throws ResourceNotFoundException {
         Optional<InstanceDTO> oDto = instanceService.getInstanceByUuid(uuid);
         if (oDto.isPresent()) {
@@ -61,7 +61,7 @@ public class InstanceController {
     }
 
     @RequestMapping(value = "/{uuid}", method = RequestMethod.PUT)
-    public HttpEntity putInstance(@PathVariable final String uuid,
+    public ResponseEntity<InstanceDTO> putInstance(@PathVariable final String uuid,
         @RequestBody @Valid InstanceChangeDTO reqDto) throws ResourceNotFoundException {
         Optional<InstanceDTO> oDto = instanceService.updateInstance(uuid, reqDto);
         if (oDto.isPresent()) {

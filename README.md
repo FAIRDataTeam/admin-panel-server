@@ -61,5 +61,10 @@ Run these comands from the root of the project
 $ mvn test
 ```
 
+### API documentation
+`Admin Panel` comes with an embedded [Swagger documentation](http://swagger.io/). 
+
+To access the documentation, please visit the following URL ([http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)).
+ 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for more details.

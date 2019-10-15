@@ -4,11 +4,14 @@ import java.util.HashMap;
 import nl.dtls.adminpanel.database.repository.ApplicationRepository;
 import nl.dtls.adminpanel.database.repository.InstanceRepository;
 import nl.dtls.adminpanel.database.repository.ServerRepository;
+import nl.dtls.adminpanel.database.repository.UserRepository;
 import nl.dtls.adminpanel.entity.Application;
 import nl.dtls.adminpanel.entity.Instance;
 import nl.dtls.adminpanel.entity.Server;
+import nl.dtls.adminpanel.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -33,6 +36,9 @@ public class DevelopmentDummyDataLoader {
     private String instanceJwtSecret;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private ServerRepository serverRepository;
 
     @Autowired
@@ -41,7 +47,13 @@ public class DevelopmentDummyDataLoader {
     @Autowired
     private ApplicationRepository applicationRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public void load() {
+        userRepository.deleteAll();
+        userRepository.save(admin());
+
         applicationRepository.deleteAll();
         Application fdpApplication = fdpApplication();
         applicationRepository.save(fdpApplication);
@@ -52,6 +64,15 @@ public class DevelopmentDummyDataLoader {
 
         instanceRepository.deleteAll();
         instanceRepository.save(stagingFdpInstance(fdpApplication, fdpServer));
+    }
+
+    public User admin() {
+        return new User(
+            "7e64818d-6276-46fb-8bb1-732e6e09f7e9",
+            "Admin",
+            "admin@example.com",
+            passwordEncoder.encode("password")
+        );
     }
 
     public Application fdpApplication() {

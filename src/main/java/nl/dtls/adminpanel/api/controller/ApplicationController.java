@@ -27,19 +27,20 @@ public class ApplicationController {
     private ApplicationService applicationService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public HttpEntity getApplications() {
+    public ResponseEntity<List<ApplicationDTO>> getApplications() {
         List<ApplicationDTO> dto = applicationService.getApplications();
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public HttpEntity createApplication(@RequestBody @Valid ApplicationChangeDTO reqDto) {
+    public ResponseEntity<ApplicationDTO> createApplication(
+        @RequestBody @Valid ApplicationChangeDTO reqDto) {
         ApplicationDTO dto = applicationService.createApplication(reqDto);
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{uuid}", method = RequestMethod.GET)
-    public HttpEntity getApplication(@PathVariable final String uuid)
+    public ResponseEntity<ApplicationDTO> getApplication(@PathVariable final String uuid)
         throws ResourceNotFoundException {
         Optional<ApplicationDTO> oDto = applicationService.getApplicationByUuid(uuid);
         if (oDto.isPresent()) {
@@ -50,7 +51,7 @@ public class ApplicationController {
     }
 
     @RequestMapping(value = "/{uuid}", method = RequestMethod.PUT)
-    public HttpEntity putApplication(@PathVariable final String uuid,
+    public ResponseEntity<ApplicationDTO> putApplication(@PathVariable final String uuid,
         @RequestBody @Valid ApplicationChangeDTO reqDto)
         throws ResourceNotFoundException {
         Optional<ApplicationDTO> oDto = applicationService.updateApplication(uuid, reqDto);

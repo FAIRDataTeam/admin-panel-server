@@ -27,19 +27,19 @@ public class ServerController {
     private ServerService serverService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public HttpEntity getServers() {
+    public ResponseEntity<List<ServerDTO>> getServers() {
         List<ServerDTO> dto = serverService.getServers();
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public HttpEntity createServer(@RequestBody @Valid ServerChangeDTO reqDto) {
+    public ResponseEntity<ServerDTO> createServer(@RequestBody @Valid ServerChangeDTO reqDto) {
         ServerDTO dto = serverService.createServer(reqDto);
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{uuid}", method = RequestMethod.GET)
-    public HttpEntity getInstance(@PathVariable final String uuid)
+    public ResponseEntity<ServerDTO> getInstance(@PathVariable final String uuid)
         throws ResourceNotFoundException {
         Optional<ServerDTO> oDto = serverService.getServerByUuid(uuid);
         if (oDto.isPresent()) {
@@ -50,7 +50,7 @@ public class ServerController {
     }
 
     @RequestMapping(value = "/{uuid}", method = RequestMethod.PUT)
-    public HttpEntity putInstance(@PathVariable final String uuid,
+    public ResponseEntity<ServerDTO> putInstance(@PathVariable final String uuid,
         @RequestBody @Valid ServerChangeDTO reqDto)
         throws ResourceNotFoundException {
         Optional<ServerDTO> oDto = serverService.updateServer(uuid, reqDto);

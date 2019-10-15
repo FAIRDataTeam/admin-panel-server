@@ -11,16 +11,6 @@
       "description": "Number of days until a token expires."
     },
     {
-      "name": "security.adminEmail",
-      "type": "java.lang.String",
-      "description": "Email for default admin account."
-    },
-    {
-      "name": "security.adminPassword",
-      "type": "java.lang.String",
-      "description": "Password for default admin account."
-    },
-    {
       "name": "dummy.server.username",
       "type": "java.lang.String",
       "description": "Dummy Server Username is used for initial database setup in 'development' mode"

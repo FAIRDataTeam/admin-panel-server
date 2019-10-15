@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import nl.dtls.adminpanel.api.dto.application.ApplicationSimpleDTO;
-import nl.dtls.adminpanel.api.dto.server.ServerSimpleDTO;
 import nl.dtls.adminpanel.entity.InstanceStatus;
 
 @NoArgsConstructor
