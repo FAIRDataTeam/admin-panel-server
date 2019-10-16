@@ -55,10 +55,11 @@ public class UserService {
     }
 
     public Optional<UserDTO> updateUser(String uuid, UserChangeDTO reqDto) {
-        Optional<User> oUser = userRepository.findByEmail(reqDto.getEmail());
-        if (oUser.isPresent() && !uuid.equals(oUser.get().getUuid())) {
+        Optional<User> oUserEmail = userRepository.findByEmail(reqDto.getEmail());
+        if (oUserEmail.isPresent() && !uuid.equals(oUserEmail.get().getUuid())) {
             throw new ValidationException(format("Email '%s' is already taken", reqDto.getEmail()));
         }
+        Optional<User> oUser = userRepository.findByUuid(uuid);
         if (oUser.isEmpty()) {
             return empty();
         }
