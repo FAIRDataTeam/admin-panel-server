@@ -1,5 +1,6 @@
 package nl.dtls.adminpanel.service.application;
 
+import static java.lang.String.format;
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
 import static java.util.stream.Collectors.toList;
@@ -46,6 +47,23 @@ public class ApplicationService {
         return applicationMapper.toDTO(application);
     }
 
+    public Optional<ApplicationDTO> cloneApplication(String source) {
+        Optional<Application> oApplication = applicationRepository.findByUuid(source);
+        if (oApplication.isEmpty()) {
+            return empty();
+        }
+        String uuid = UUID.randomUUID().toString();
+        Application application = oApplication.get();
+        Application clonedApplication = application
+            .toBuilder()
+            .id(null)
+            .uuid(uuid)
+            .name(format("Copy of %s", application.getName()))
+            .build();
+        applicationRepository.save(clonedApplication);
+        return of(applicationMapper.toDTO(clonedApplication));
+    }
+
     public Optional<ApplicationDTO> updateApplication(String uuid, ApplicationChangeDTO reqDto) {
         Optional<Application> oApplication = applicationRepository.findByUuid(uuid);
         if (oApplication.isEmpty()) {
@@ -65,5 +83,4 @@ public class ApplicationService {
         applicationRepository.delete(oApplication.get());
         return true;
     }
-
 }

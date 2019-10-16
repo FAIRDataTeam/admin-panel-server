@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -34,9 +35,19 @@ public class ApplicationController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<ApplicationDTO> createApplication(
-        @RequestBody @Valid ApplicationChangeDTO reqDto) {
-        ApplicationDTO dto = applicationService.createApplication(reqDto);
-        return new ResponseEntity<>(dto, HttpStatus.OK);
+        @RequestParam(required = false) String source,
+        @RequestBody(required = false) @Valid ApplicationChangeDTO reqDto) {
+        if (source == null) {
+            ApplicationDTO dto = applicationService.createApplication(reqDto);
+            return new ResponseEntity<>(dto, HttpStatus.OK);
+        } else {
+            Optional<ApplicationDTO> oDto = applicationService.cloneApplication(source);
+            if (oDto.isPresent()) {
+                return new ResponseEntity<>(oDto.get(), HttpStatus.OK);
+            } else {
+                throw new ResourceNotFoundException(format("Instance '%s' doesn't exist", source));
+            }
+        }
     }
 
     @RequestMapping(value = "/{uuid}", method = RequestMethod.GET)
