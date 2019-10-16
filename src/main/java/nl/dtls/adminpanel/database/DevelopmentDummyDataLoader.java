@@ -1,5 +1,6 @@
 package nl.dtls.adminpanel.database;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import nl.dtls.adminpanel.database.repository.ApplicationRepository;
 import nl.dtls.adminpanel.database.repository.InstanceRepository;
@@ -8,6 +9,7 @@ import nl.dtls.adminpanel.database.repository.UserRepository;
 import nl.dtls.adminpanel.entity.Application;
 import nl.dtls.adminpanel.entity.Instance;
 import nl.dtls.adminpanel.entity.Server;
+import nl.dtls.adminpanel.entity.Template;
 import nl.dtls.adminpanel.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -81,24 +83,24 @@ public class DevelopmentDummyDataLoader {
             "Fair Data Point",
             "deploy.sh",
             "dispose.sh",
-            new HashMap<>() {{
-                put("deploy.sh",
+            new ArrayList<>() {{
+                add(new Template("deploy.sh",
                     ""
                         + "#!/bin/bash\n"
                         + "\n"
                         + "docker-compose -f {{instance_path}}/docker-compose.yml pull\n"
                         + "docker-compose -f {{instance_path}}/docker-compose.yml down\n"
                         + "docker-compose -f {{instance_path}}/docker-compose.yml up -d\n"
-                );
-                put("dispose.sh",
+                ));
+                add(new Template("dispose.sh",
                     ""
                         + "#!/bin/bash\n"
                         + "\n"
                         + "docker-compose -f {{instance_path}}/docker-compose.yml down\n"
                         + "rm -rf {{instance_path}}\n"
 
-                );
-                put("docker-compose.yml",
+                ));
+                add(new Template("docker-compose.yml",
                     ""
                         + "version: '3'\n"
                         + "services:\n"
@@ -112,8 +114,8 @@ public class DevelopmentDummyDataLoader {
                         + "      - {{instance_path}}/_customization.scss:/fdp/scss/_customization"
                         + ".scss\n"
                         + "      - {{instance_path}}/_extra.scss:/fdp/scss/_extra.scss\n"
-                );
-                put("application-production.yml",
+                ));
+                add(new Template("application-production.yml",
                     ""
                         + "instance:\n"
                         + "  url: {{instance_url}}\n"
@@ -175,9 +177,9 @@ public class DevelopmentDummyDataLoader {
                         + "  config: classpath:log4j2-production.xml\n"
                         + "\n"
                         + "scssDir: /fdp/scss\n"
-                );
-                put("_customization.scss", "{{scss_customizations}}\n");
-                put("_extra.scss", "{{scss_extra}}\n");
+                ));
+                add(new Template("_customization.scss", "{{scss_customizations}}\n"));
+                add(new Template("_extra.scss", "{{scss_extra}}\n"));
             }});
     }
 

@@ -10,6 +10,7 @@ import nl.dtls.adminpanel.database.repository.InstanceRepository;
 import nl.dtls.adminpanel.entity.Application;
 import nl.dtls.adminpanel.entity.Instance;
 import nl.dtls.adminpanel.entity.Server;
+import nl.dtls.adminpanel.entity.Template;
 import nl.dtls.adminpanel.entity.exception.ResourceNotFoundException;
 import nl.dtls.adminpanel.service.file.FileService;
 import nl.dtls.adminpanel.service.ssh.SshService;
@@ -144,12 +145,11 @@ public class DeploymentService {
         return
             application
                 .getTemplates()
-                .entrySet()
                 .stream()
                 .collect(
                     toMap(
-                        Entry::getKey,
-                        e -> templateService.render(e.getValue(), templateVariables)));
+                        Template::getName,
+                        e -> templateService.render(e.getContent(), templateVariables)));
     }
 
 }

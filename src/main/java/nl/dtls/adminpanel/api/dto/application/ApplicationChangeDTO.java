@@ -1,6 +1,6 @@
 package nl.dtls.adminpanel.api.dto.application;
 
-import java.util.Map;
+import java.util.List;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -24,6 +24,6 @@ public class ApplicationChangeDTO {
     protected String disposeCommand;
 
     @NotNull
-    protected Map<String, String> templates;
+    protected List<TemplateDTO> templates;
 
 }

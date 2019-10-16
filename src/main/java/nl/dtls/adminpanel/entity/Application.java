@@ -1,6 +1,6 @@
 package nl.dtls.adminpanel.entity;
 
-import java.util.Map;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,10 +29,10 @@ public class Application {
 
     protected String disposeCommand;
 
-    protected Map<String, String> templates;
+    protected List<Template> templates;
 
     public Application(String uuid, String name, String deployCommand, String disposeCommand,
-        Map<String, String> templates) {
+        List<Template> templates) {
         this.uuid = uuid;
         this.name = name;
         this.deployCommand = deployCommand;
