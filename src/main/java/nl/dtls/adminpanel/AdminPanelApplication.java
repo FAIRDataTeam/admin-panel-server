@@ -2,7 +2,7 @@ package nl.dtls.adminpanel;
 
 import static org.springframework.core.env.Profiles.of;
 
-import nl.dtls.adminpanel.database.DevelopmentDummyDataLoader;
+import nl.dtls.adminpanel.database.fixtures.DummyDataLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -14,7 +14,7 @@ import org.springframework.core.env.Environment;
 public class AdminPanelApplication implements ApplicationRunner {
 
     @Autowired
-    private DevelopmentDummyDataLoader developmentDummyDataLoader;
+    private DummyDataLoader dummyDataLoader;
 
     @Autowired
     private Environment environment;
@@ -30,7 +30,7 @@ public class AdminPanelApplication implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) {
         if (environment.acceptsProfiles(of(Profiles.DEVELOPMENT))) {
-            developmentDummyDataLoader.load();
+            dummyDataLoader.load();
         }
     }
 }
