@@ -1,4 +1,4 @@
-package nl.dtls.adminpanel.service.security;
+package nl.dtls.adminpanel.service.jwt;
 
 import static java.util.Optional.of;
 import static java.util.Optional.ofNullable;
@@ -12,10 +12,10 @@ import java.util.Base64;
 import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
+import nl.dtls.adminpanel.entity.exception.ForbiddenException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
-import org.springframework.security.authentication.CredentialsExpiredException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -73,7 +73,7 @@ public class JwtTokenProvider {
             Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
             return !claims.getBody().getExpiration().before(new Date());
         } catch (JwtException | IllegalArgumentException e) {
-            throw new CredentialsExpiredException("Expired or invalid JWT token");
+            throw new ForbiddenException("Expired or invalid JWT token");
         }
     }
 }

@@ -2,13 +2,13 @@ package nl.dtls.adminpanel.api.controller.exception;
 
 import javax.servlet.http.HttpServletResponse;
 import nl.dtls.adminpanel.api.dto.error.ErrorDTO;
+import nl.dtls.adminpanel.entity.exception.ForbiddenException;
 import nl.dtls.adminpanel.entity.exception.ResourceNotFoundException;
 import nl.dtls.adminpanel.entity.exception.ValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.CredentialsExpiredException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,12 +27,20 @@ public class ExceptionControllerAdvice {
         return new ErrorDTO(HttpStatus.BAD_REQUEST, e.getMessage());
     }
 
-    @ExceptionHandler({BadCredentialsException.class, CredentialsExpiredException.class})
+    @ExceptionHandler({BadCredentialsException.class})
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ResponseBody
     public ErrorDTO handleUnauthorized(Exception e, HttpServletResponse response) {
         LOGGER.error(e.getMessage());
         return new ErrorDTO(HttpStatus.UNAUTHORIZED, e.getMessage());
+    }
+
+    @ExceptionHandler({ForbiddenException.class})
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ResponseBody
+    public ErrorDTO handleForbidden(Exception e, HttpServletResponse response) {
+        LOGGER.error(e.getMessage());
+        return new ErrorDTO(HttpStatus.FORBIDDEN, e.getMessage());
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
@@ -42,6 +50,14 @@ public class ExceptionControllerAdvice {
         HttpServletResponse response) {
         LOGGER.error(e.getMessage());
         return new ErrorDTO(HttpStatus.NOT_FOUND, e.getMessage());
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public ErrorDTO handleInternalServerError(Exception e, HttpServletResponse response) {
+        LOGGER.error(e.getMessage());
+        return new ErrorDTO(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
     }
 
 }

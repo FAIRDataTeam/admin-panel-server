@@ -1,6 +1,6 @@
 package nl.dtls.adminpanel.config;
 
-import nl.dtls.adminpanel.service.security.JwtConfigurer;
+import nl.dtls.adminpanel.api.filter.FilterConfigurer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
@@ -14,7 +14,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private JwtConfigurer jwtConfigurer;
+    private FilterConfigurer filterConfigurer;
 
     @Bean
     @Override
@@ -36,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/configuration/**", "/swagger-ui.html", "/webjars/**").permitAll()
             .anyRequest().authenticated()
             .and()
-            .apply(jwtConfigurer);
+            .apply(filterConfigurer);
     }
 
 

@@ -3,7 +3,7 @@ package nl.dtls.adminpanel.api.controller;
 import javax.validation.Valid;
 import nl.dtls.adminpanel.api.dto.auth.AuthDTO;
 import nl.dtls.adminpanel.api.dto.auth.TokenDTO;
-import nl.dtls.adminpanel.service.security.JwtTokenProvider;
+import nl.dtls.adminpanel.service.jwt.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
