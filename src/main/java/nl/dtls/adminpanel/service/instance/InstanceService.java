@@ -18,6 +18,7 @@ import nl.dtls.adminpanel.entity.Instance;
 import nl.dtls.adminpanel.entity.InstanceStatus;
 import nl.dtls.adminpanel.entity.Server;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -97,10 +98,18 @@ public class InstanceService {
         return of(instanceMapper.toDTO(updatedInstance, computeInstanceStatus(updatedInstance)));
     }
 
+    public boolean deleteInstance(String uuid) {
+        Optional<Instance> oInstance = instanceRepository.findByUuid(uuid);
+        if (oInstance.isEmpty()) {
+            return false;
+        }
+        instanceRepository.delete(oInstance.get());
+        return true;
+    }
+
     private InstanceStatus computeInstanceStatus(Instance instance) {
         try {
-            ResponseEntity<String> response = restTemplate
-                .getForEntity(instance.getUrl(), String.class);
+            ResponseEntity<String> response = doHttpCall(instance.getUrl());
             return
                 response.getStatusCode() == HttpStatus.OK
                     ? InstanceStatus.RUNNING
@@ -110,12 +119,15 @@ public class InstanceService {
         }
     }
 
-    public boolean deleteInstance(String uuid) {
-        Optional<Instance> oInstance = instanceRepository.findByUuid(uuid);
-        if (oInstance.isEmpty()) {
-            return false;
+    private ResponseEntity<String> doHttpCall(String url) {
+        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+        if (response.getStatusCode() == HttpStatus.FOUND
+            || response.getStatusCode() == HttpStatus.MOVED_PERMANENTLY) {
+            List<String> locations = response.getHeaders().get(HttpHeaders.LOCATION);
+            if (locations != null && locations.size() == 1) {
+                return doHttpCall(locations.get(0));
+            }
         }
-        instanceRepository.delete(oInstance.get());
-        return true;
+        return response;
     }
 }
