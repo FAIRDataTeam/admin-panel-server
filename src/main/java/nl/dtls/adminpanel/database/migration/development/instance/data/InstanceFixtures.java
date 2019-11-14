@@ -1,9 +1,14 @@
-package nl.dtls.adminpanel.database.fixtures.data;
+package nl.dtls.adminpanel.database.migration.development.instance.data;
 
 import java.util.HashMap;
+import nl.dtls.adminpanel.database.migration.development.application.data.ApplicationFixtures;
+import nl.dtls.adminpanel.database.migration.development.server.data.ServerFixtures;
+import nl.dtls.adminpanel.database.repository.ApplicationRepository;
+import nl.dtls.adminpanel.database.repository.ServerRepository;
 import nl.dtls.adminpanel.entity.Application;
 import nl.dtls.adminpanel.entity.Instance;
 import nl.dtls.adminpanel.entity.Server;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +21,22 @@ public class InstanceFixtures {
     @Value("${dummy.instance.jwtSecret:}")
     private String instanceJwtSecret;
 
-    public Instance stagingFdpInstance(Application fdpApplication,
-        Server fdpServer) {
+    @Autowired
+    private ApplicationFixtures applicationFixtures;
+
+    @Autowired
+    private ServerFixtures serverFixtures;
+
+    @Autowired
+    private ApplicationRepository applicationRepository;
+
+    @Autowired
+    private ServerRepository serverRepository;
+
+    public Instance fdpStaging() {
+        Application fdpApplication = applicationRepository
+            .findByUuid(applicationFixtures.fdpApplication().getUuid()).get();
+        Server fdpServer = serverRepository.findByUuid(serverFixtures.fdpServer().getUuid()).get();
         return new Instance(
             "6f29daa8-1c43-49c3-9d1b-dc422e333d1e",
             "FDP Staging Instance",

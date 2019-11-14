@@ -1,4 +1,4 @@
-package nl.dtls.adminpanel.database.fixtures.data;
+package nl.dtls.adminpanel.database.migration.development.application.data;
 
 import java.util.ArrayList;
 import nl.dtls.adminpanel.entity.Application;

@@ -1,4 +1,4 @@
-package nl.dtls.adminpanel.database.fixtures.data;
+package nl.dtls.adminpanel.database.migration.development.user.data;
 
 import nl.dtls.adminpanel.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;

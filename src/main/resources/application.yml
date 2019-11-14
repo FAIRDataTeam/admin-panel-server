@@ -1,8 +1,7 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://mongo:27017
-      database: admin-panel
+      uri: mongodb://mongo:27017/admin-panel
 
 security:
   jwt:

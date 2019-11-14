@@ -20,6 +20,7 @@
         <java.version>11</java.version>
 
         <!-- Core -->
+        <mongobee.version>0.13</mongobee.version>
         <jwt.version>0.10.5</jwt.version>
         <sshj.version>0.27.0</sshj.version>
         <jinja.version>2.0.5</jinja.version>
@@ -47,10 +48,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.data</groupId>-->
-<!--            <artifactId>spring-data-mongodb</artifactId>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
@@ -59,6 +56,11 @@
         <!-- ////////////////// -->
         <!--   Core             -->
         <!-- ////////////////// -->
+        <dependency>
+            <groupId>com.github.mongobee</groupId>
+            <artifactId>mongobee</artifactId>
+            <version>${mongobee.version}</version>
+        </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>

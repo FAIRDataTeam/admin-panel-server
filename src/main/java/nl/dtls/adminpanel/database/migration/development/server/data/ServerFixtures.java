@@ -1,4 +1,4 @@
-package nl.dtls.adminpanel.database.fixtures.data;
+package nl.dtls.adminpanel.database.migration.development.server.data;
 
 import nl.dtls.adminpanel.entity.Server;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,6 +1,9 @@
 dist: xenial
 language: generic
 
+services:
+  - mongodb
+
 jdk:
   - openjdk11
 
