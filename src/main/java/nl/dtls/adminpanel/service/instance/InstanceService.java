@@ -22,6 +22,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
@@ -109,13 +110,12 @@ public class InstanceService {
 
     private InstanceStatus computeInstanceStatus(Instance instance) {
         try {
-            ResponseEntity<String> response = doHttpCall(instance.getUrl());
-            return
-                response.getStatusCode() == HttpStatus.OK
-                    ? InstanceStatus.RUNNING
-                    : InstanceStatus.ERROR;
+            doHttpCall(instance.getUrl());
+            return InstanceStatus.RUNNING;
         } catch (ResourceAccessException e) {
             return InstanceStatus.NOT_DEPLOYED;
+        } catch (HttpClientErrorException e) {
+            return InstanceStatus.ERROR;
         }
     }
 
