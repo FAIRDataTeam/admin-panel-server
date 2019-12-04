@@ -8,6 +8,7 @@ import static java.util.stream.Collectors.toList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import lombok.extern.slf4j.Slf4j;
 import nl.dtls.adminpanel.api.dto.instance.InstanceChangeDTO;
 import nl.dtls.adminpanel.api.dto.instance.InstanceDTO;
 import nl.dtls.adminpanel.database.repository.ApplicationRepository;
@@ -26,6 +27,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
+@Slf4j
 @Service
 public class InstanceService {
 
@@ -115,6 +117,8 @@ public class InstanceService {
         } catch (ResourceAccessException e) {
             return InstanceStatus.NOT_DEPLOYED;
         } catch (HttpClientErrorException e) {
+            log.info("Instance {} (http: {}, status: {})", instance.getUrl(),
+                e.getStatusCode().toString(), InstanceStatus.ERROR);
             return InstanceStatus.ERROR;
         }
     }
