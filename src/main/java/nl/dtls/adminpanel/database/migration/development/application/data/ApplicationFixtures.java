@@ -111,7 +111,8 @@ public class ApplicationFixtures {
                 ));
                 add(new Template("_customization.scss", "{{scss_customizations}}\n"));
                 add(new Template("_extra.scss", "{{scss_extra}}\n"));
-            }});
+            }},
+            "");
     }
 
 }

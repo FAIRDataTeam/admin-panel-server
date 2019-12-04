@@ -26,4 +26,7 @@ public class ApplicationChangeDTO {
     @NotNull
     protected List<TemplateDTO> templates;
 
+    @NotBlank
+    protected String formSpec;
+
 }

@@ -21,7 +21,8 @@ public class ApplicationMapper {
                 application.getName(),
                 application.getDeployCommand(),
                 application.getDisposeCommand(),
-                toTemplatesDTO(application.getTemplates()));
+                toTemplatesDTO(application.getTemplates()),
+                application.getFormSpec());
     }
 
     public ApplicationSimpleDTO toSimpleDTO(Application application) {
@@ -38,7 +39,8 @@ public class ApplicationMapper {
                 dto.getName(),
                 dto.getDeployCommand(),
                 dto.getDisposeCommand(),
-                fromTemplatesDTO(dto.getTemplates()));
+                fromTemplatesDTO(dto.getTemplates()),
+                dto.getFormSpec());
     }
 
     public Application fromChangeDTO(ApplicationChangeDTO dto, Application application) {
@@ -49,6 +51,7 @@ public class ApplicationMapper {
                 .deployCommand(dto.getDeployCommand())
                 .disposeCommand(dto.getDisposeCommand())
                 .templates(fromTemplatesDTO(dto.getTemplates()))
+                .formSpec(dto.getFormSpec())
                 .build();
     }
 

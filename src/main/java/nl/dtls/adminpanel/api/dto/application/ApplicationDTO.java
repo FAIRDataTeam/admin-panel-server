@@ -22,4 +22,6 @@ public class ApplicationDTO {
 
     protected List<TemplateDTO> templates;
 
+    protected String formSpec;
+
 }
