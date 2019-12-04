@@ -1,11 +1,11 @@
 package nl.dtls.adminpanel.database.migration.development;
 
 import javax.annotation.PostConstruct;
-import nl.dtls.adminpanel.Profiles;
 import nl.dtls.adminpanel.database.migration.development.application.ApplicationMigration;
 import nl.dtls.adminpanel.database.migration.development.instance.InstanceMigration;
 import nl.dtls.adminpanel.database.migration.development.server.ServerMigration;
 import nl.dtls.adminpanel.database.migration.development.user.UserMigration;
+import nl.dtls.shared.Profiles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;

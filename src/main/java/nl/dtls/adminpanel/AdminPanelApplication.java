@@ -1,9 +1,12 @@
 package nl.dtls.adminpanel;
 
+import nl.dtls.shared.Profiles;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
+@ComponentScan(basePackages = {"nl.dtls.adminpanel.*", "nl.dtls.shared.*"})
 public class AdminPanelApplication {
 
     public static void main(String[] args) {

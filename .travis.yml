@@ -22,6 +22,12 @@ jobs:
   include:
     - stage: build
       script:
+        # 1. Install java-backend-common
+        - git clone --depth 1 -b $TRAVIS_BRANCH https://github.com/FAIRDataTeam/java-backend-common ./java-backend-common || git clone --depth 1 -b develop https://github.com/FAIRDataTeam/java-backend-common ./java-backend-common
+        - cd  ./java-backend-common
+        - mvn --quiet --fail-fast install
+        - cd ..
+        # 2. Build Admin Panel
         - mvn org.jacoco:jacoco-maven-plugin:prepare-agent test
         - mvn --quiet --fail-fast -DskipTests package
         - docker pull $IMAGE_TAG_DEVELOP

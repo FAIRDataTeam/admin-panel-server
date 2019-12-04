@@ -19,6 +19,9 @@
         <!-- Project -->
         <java.version>11</java.version>
 
+        <!-- Project related -->
+        <shared.version>0.1-beta</shared.version>
+
         <!-- Core -->
         <mongobee.version>0.13</mongobee.version>
         <jwt.version>0.10.5</jwt.version>
@@ -29,6 +32,15 @@
     </properties>
 
     <dependencies>
+        <!-- ////////////////// -->
+        <!--   Project related  -->
+        <!-- ////////////////// -->
+        <dependency>
+            <groupId>nl.dtls</groupId>
+            <artifactId>shared</artifactId>
+            <version>${shared.version}</version>
+        </dependency>
+
         <!-- ////////////////// -->
         <!--   Spring           -->
         <!-- ////////////////// -->

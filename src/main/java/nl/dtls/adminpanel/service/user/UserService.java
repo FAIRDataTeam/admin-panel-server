@@ -14,7 +14,7 @@ import nl.dtls.adminpanel.api.dto.user.UserDTO;
 import nl.dtls.adminpanel.api.dto.user.UserPasswordDTO;
 import nl.dtls.adminpanel.database.repository.UserRepository;
 import nl.dtls.adminpanel.entity.User;
-import nl.dtls.adminpanel.entity.exception.ValidationException;
+import nl.dtls.shared.entity.exception.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

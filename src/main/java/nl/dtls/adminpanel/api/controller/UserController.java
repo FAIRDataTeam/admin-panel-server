@@ -9,7 +9,7 @@ import nl.dtls.adminpanel.api.dto.user.UserChangeDTO;
 import nl.dtls.adminpanel.api.dto.user.UserCreateDTO;
 import nl.dtls.adminpanel.api.dto.user.UserDTO;
 import nl.dtls.adminpanel.api.dto.user.UserPasswordDTO;
-import nl.dtls.adminpanel.entity.exception.ResourceNotFoundException;
+import nl.dtls.shared.entity.exception.ResourceNotFoundException;
 import nl.dtls.adminpanel.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;

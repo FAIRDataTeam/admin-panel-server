@@ -11,7 +11,7 @@ import nl.dtls.adminpanel.entity.Application;
 import nl.dtls.adminpanel.entity.Instance;
 import nl.dtls.adminpanel.entity.Server;
 import nl.dtls.adminpanel.entity.Template;
-import nl.dtls.adminpanel.entity.exception.ResourceNotFoundException;
+import nl.dtls.shared.entity.exception.ResourceNotFoundException;
 import nl.dtls.adminpanel.service.file.FileService;
 import nl.dtls.adminpanel.service.ssh.SshService;
 import nl.dtls.adminpanel.service.template.TemplateService;

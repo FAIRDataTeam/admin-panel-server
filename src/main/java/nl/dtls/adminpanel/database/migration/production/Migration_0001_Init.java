@@ -22,7 +22,7 @@ import com.github.mongobee.changeset.ChangeLog;
 import com.github.mongobee.changeset.ChangeSet;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import nl.dtls.adminpanel.Profiles;
+import nl.dtls.shared.Profiles;
 import org.bson.Document;
 import org.springframework.context.annotation.Profile;
 

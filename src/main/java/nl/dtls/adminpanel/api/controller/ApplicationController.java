@@ -7,7 +7,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 import nl.dtls.adminpanel.api.dto.application.ApplicationChangeDTO;
 import nl.dtls.adminpanel.api.dto.application.ApplicationDTO;
-import nl.dtls.adminpanel.entity.exception.ResourceNotFoundException;
+import nl.dtls.shared.entity.exception.ResourceNotFoundException;
 import nl.dtls.adminpanel.service.application.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
