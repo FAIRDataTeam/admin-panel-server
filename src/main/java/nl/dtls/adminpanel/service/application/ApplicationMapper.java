@@ -7,8 +7,8 @@ import nl.dtls.adminpanel.api.dto.application.ApplicationChangeDTO;
 import nl.dtls.adminpanel.api.dto.application.ApplicationDTO;
 import nl.dtls.adminpanel.api.dto.application.ApplicationSimpleDTO;
 import nl.dtls.adminpanel.api.dto.application.TemplateDTO;
-import nl.dtls.adminpanel.entity.Application;
-import nl.dtls.adminpanel.entity.Template;
+import nl.dtls.adminpanel.entity.application.Application;
+import nl.dtls.adminpanel.entity.application.Template;
 import org.springframework.stereotype.Service;
 
 @Service

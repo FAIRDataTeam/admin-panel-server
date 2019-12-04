@@ -10,7 +10,7 @@ import java.util.UUID;
 import nl.dtls.adminpanel.api.dto.server.ServerChangeDTO;
 import nl.dtls.adminpanel.api.dto.server.ServerDTO;
 import nl.dtls.adminpanel.database.repository.ServerRepository;
-import nl.dtls.adminpanel.entity.Server;
+import nl.dtls.adminpanel.entity.server.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

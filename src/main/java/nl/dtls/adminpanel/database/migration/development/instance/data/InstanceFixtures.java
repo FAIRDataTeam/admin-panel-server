@@ -5,9 +5,9 @@ import nl.dtls.adminpanel.database.migration.development.application.data.Applic
 import nl.dtls.adminpanel.database.migration.development.server.data.ServerFixtures;
 import nl.dtls.adminpanel.database.repository.ApplicationRepository;
 import nl.dtls.adminpanel.database.repository.ServerRepository;
-import nl.dtls.adminpanel.entity.Application;
-import nl.dtls.adminpanel.entity.Instance;
-import nl.dtls.adminpanel.entity.Server;
+import nl.dtls.adminpanel.entity.application.Application;
+import nl.dtls.adminpanel.entity.instance.Instance;
+import nl.dtls.adminpanel.entity.server.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

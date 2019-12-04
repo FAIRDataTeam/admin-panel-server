@@ -1,10 +1,10 @@
 package nl.dtls.adminpanel.api.controller.exception;
 
 import javax.servlet.http.HttpServletResponse;
+import nl.dtls.shared.api.dto.error.ErrorDTO;
 import nl.dtls.shared.entity.exception.ForbiddenException;
 import nl.dtls.shared.entity.exception.ResourceNotFoundException;
 import nl.dtls.shared.entity.exception.ValidationException;
-import nl.dtls.shared.api.dto.error.ErrorDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

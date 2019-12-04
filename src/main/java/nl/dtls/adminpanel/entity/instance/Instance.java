@@ -1,4 +1,4 @@
-package nl.dtls.adminpanel.entity;
+package nl.dtls.adminpanel.entity.instance;
 
 import java.util.Map;
 import lombok.AllArgsConstructor;
@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import nl.dtls.adminpanel.entity.application.Application;
+import nl.dtls.adminpanel.entity.server.Server;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;

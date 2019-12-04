@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import nl.dtls.adminpanel.entity.InstanceStatus;
+import nl.dtls.adminpanel.entity.instance.InstanceStatus;
 
 @NoArgsConstructor
 @AllArgsConstructor

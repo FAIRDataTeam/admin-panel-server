@@ -1,4 +1,4 @@
-package nl.dtls.adminpanel.entity;
+package nl.dtls.adminpanel.entity.instance;
 
 public enum InstanceStatus {
 

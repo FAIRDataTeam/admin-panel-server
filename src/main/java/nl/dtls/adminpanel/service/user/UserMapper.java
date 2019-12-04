@@ -4,7 +4,7 @@ import nl.dtls.adminpanel.api.dto.user.UserChangeDTO;
 import nl.dtls.adminpanel.api.dto.user.UserCreateDTO;
 import nl.dtls.adminpanel.api.dto.user.UserDTO;
 import nl.dtls.adminpanel.api.dto.user.UserPasswordDTO;
-import nl.dtls.adminpanel.entity.User;
+import nl.dtls.adminpanel.entity.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

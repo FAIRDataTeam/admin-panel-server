@@ -3,7 +3,7 @@ package nl.dtls.adminpanel.database.migration.development.application;
 import nl.dtls.adminpanel.database.migration.development.application.data.ApplicationFixtures;
 import nl.dtls.adminpanel.database.migration.development.common.Migration;
 import nl.dtls.adminpanel.database.repository.ApplicationRepository;
-import nl.dtls.adminpanel.entity.Application;
+import nl.dtls.adminpanel.entity.application.Application;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

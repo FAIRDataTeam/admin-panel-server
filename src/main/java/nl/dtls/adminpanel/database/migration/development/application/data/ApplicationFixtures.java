@@ -1,8 +1,8 @@
 package nl.dtls.adminpanel.database.migration.development.application.data;
 
 import java.util.ArrayList;
-import nl.dtls.adminpanel.entity.Application;
-import nl.dtls.adminpanel.entity.Template;
+import nl.dtls.adminpanel.entity.application.Application;
+import nl.dtls.adminpanel.entity.application.Template;
 import org.springframework.stereotype.Service;
 
 @Service

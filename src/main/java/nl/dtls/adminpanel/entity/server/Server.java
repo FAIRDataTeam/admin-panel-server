@@ -1,4 +1,4 @@
-package nl.dtls.adminpanel.entity;
+package nl.dtls.adminpanel.entity.server;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,7 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Getter
 @Setter
 @Builder(toBuilder = true)
-public class User {
+public class Server {
 
     @Id
     protected ObjectId id;
@@ -24,14 +24,22 @@ public class User {
 
     protected String name;
 
-    protected String email;
+    protected String username;
 
-    protected String passwordHash;
+    protected String hostname;
 
-    public User(String uuid, String name, String email, String passwordHash) {
+    protected String privateKey;
+
+    protected String publicKey;
+
+    public Server(String uuid, String name, String username, String hostname, String privateKey,
+        String publicKey) {
         this.uuid = uuid;
         this.name = name;
-        this.email = email;
-        this.passwordHash = passwordHash;
+        this.username = username;
+        this.hostname = hostname;
+        this.privateKey = privateKey;
+        this.publicKey = publicKey;
     }
+
 }

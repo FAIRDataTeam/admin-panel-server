@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import nl.dtls.adminpanel.database.repository.UserRepository;
-import nl.dtls.adminpanel.entity.User;
+import nl.dtls.adminpanel.entity.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

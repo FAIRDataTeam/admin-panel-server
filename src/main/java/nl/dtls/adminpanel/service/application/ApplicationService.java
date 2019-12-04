@@ -11,7 +11,7 @@ import java.util.UUID;
 import nl.dtls.adminpanel.api.dto.application.ApplicationChangeDTO;
 import nl.dtls.adminpanel.api.dto.application.ApplicationDTO;
 import nl.dtls.adminpanel.database.repository.ApplicationRepository;
-import nl.dtls.adminpanel.entity.Application;
+import nl.dtls.adminpanel.entity.application.Application;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -3,7 +3,7 @@ package nl.dtls.adminpanel.service.server;
 import nl.dtls.adminpanel.api.dto.server.ServerChangeDTO;
 import nl.dtls.adminpanel.api.dto.server.ServerDTO;
 import nl.dtls.adminpanel.api.dto.server.ServerSimpleDTO;
-import nl.dtls.adminpanel.entity.Server;
+import nl.dtls.adminpanel.entity.server.Server;
 import org.springframework.stereotype.Service;
 
 @Service
