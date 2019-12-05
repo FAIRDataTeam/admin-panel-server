@@ -7,8 +7,8 @@ import nl.dtls.adminpanel.api.dto.application.ApplicationChangeDTO;
 import nl.dtls.adminpanel.api.dto.application.ApplicationDTO;
 import nl.dtls.adminpanel.api.dto.application.ApplicationSimpleDTO;
 import nl.dtls.adminpanel.api.dto.application.TemplateDTO;
-import nl.dtls.adminpanel.entity.Application;
-import nl.dtls.adminpanel.entity.Template;
+import nl.dtls.adminpanel.entity.application.Application;
+import nl.dtls.adminpanel.entity.application.Template;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,6 +20,7 @@ public class ApplicationMapper {
                 application.getUuid(),
                 application.getName(),
                 application.getDeployCommand(),
+                application.getPauseCommand(),
                 application.getDisposeCommand(),
                 toTemplatesDTO(application.getTemplates()),
                 application.getFormSpec());
@@ -38,6 +39,7 @@ public class ApplicationMapper {
                 uuid,
                 dto.getName(),
                 dto.getDeployCommand(),
+                dto.getPauseCommand(),
                 dto.getDisposeCommand(),
                 fromTemplatesDTO(dto.getTemplates()),
                 dto.getFormSpec());
@@ -49,6 +51,7 @@ public class ApplicationMapper {
                 .toBuilder()
                 .name(dto.getName())
                 .deployCommand(dto.getDeployCommand())
+                .pauseCommand(dto.getPauseCommand())
                 .disposeCommand(dto.getDisposeCommand())
                 .templates(fromTemplatesDTO(dto.getTemplates()))
                 .formSpec(dto.getFormSpec())

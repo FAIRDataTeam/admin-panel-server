@@ -3,10 +3,11 @@ package nl.dtls.adminpanel.service.instance;
 import java.util.HashMap;
 import nl.dtls.adminpanel.api.dto.instance.InstanceChangeDTO;
 import nl.dtls.adminpanel.api.dto.instance.InstanceDTO;
-import nl.dtls.adminpanel.entity.Application;
-import nl.dtls.adminpanel.entity.Instance;
-import nl.dtls.adminpanel.entity.InstanceStatus;
-import nl.dtls.adminpanel.entity.Server;
+import nl.dtls.adminpanel.api.dto.instance.InstanceSimpleDTO;
+import nl.dtls.adminpanel.entity.application.Application;
+import nl.dtls.adminpanel.entity.instance.Instance;
+import nl.dtls.adminpanel.entity.instance.InstanceStatus;
+import nl.dtls.adminpanel.entity.server.Server;
 import nl.dtls.adminpanel.service.application.ApplicationMapper;
 import nl.dtls.adminpanel.service.server.ServerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,10 @@ public class InstanceMapper {
             instance.getApplication().getUuid(),
             instance.getServer().getUuid()
         );
+    }
+
+    public InstanceSimpleDTO toSimpleDTO(Instance instance) {
+        return new InstanceSimpleDTO(instance.getUuid(), instance.getName(), instance.getUrl());
     }
 
     public Instance fromCreateDTO(InstanceChangeDTO reqDto, String uuid, Server server,

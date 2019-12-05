@@ -11,14 +11,14 @@ import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import nl.dtls.adminpanel.api.dto.instance.InstanceChangeDTO;
 import nl.dtls.adminpanel.api.dto.instance.InstanceDTO;
-import nl.dtls.adminpanel.database.repository.ApplicationRepository;
-import nl.dtls.adminpanel.database.repository.InstanceRepository;
-import nl.dtls.adminpanel.database.repository.ServerRepository;
-import nl.dtls.adminpanel.entity.Application;
-import nl.dtls.adminpanel.entity.Instance;
-import nl.dtls.adminpanel.entity.InstanceStatus;
-import nl.dtls.adminpanel.entity.Server;
+import nl.dtls.adminpanel.database.repository.application.ApplicationRepository;
+import nl.dtls.adminpanel.database.repository.instance.InstanceRepository;
+import nl.dtls.adminpanel.database.repository.server.ServerRepository;
+import nl.dtls.adminpanel.entity.application.Application;
 import nl.dtls.adminpanel.entity.exception.ValidationException;
+import nl.dtls.adminpanel.entity.instance.Instance;
+import nl.dtls.adminpanel.entity.instance.InstanceStatus;
+import nl.dtls.adminpanel.entity.server.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -71,7 +71,7 @@ public class InstanceService {
             .get();
         Instance instance = instanceMapper.fromCreateDTO(reqDto, uuid, server, application);
         instanceRepository.save(instance);
-        return instanceMapper.toDTO(instance, InstanceStatus.NOT_DEPLOYED);
+        return instanceMapper.toDTO(instance, InstanceStatus.NOT_RUNNING);
     }
 
     public Optional<InstanceDTO> cloneInstance(String source) {
@@ -88,7 +88,7 @@ public class InstanceService {
             .name(format("Copy of %s", instance.getName()))
             .build();
         instanceRepository.save(clonedInstance);
-        return of(instanceMapper.toDTO(clonedInstance, InstanceStatus.NOT_DEPLOYED));
+        return of(instanceMapper.toDTO(clonedInstance, InstanceStatus.NOT_RUNNING));
     }
 
     public Optional<InstanceDTO> updateInstance(String uuid, InstanceChangeDTO reqDto) {
@@ -129,7 +129,7 @@ public class InstanceService {
             doHttpCall(instance.getUrl());
             return InstanceStatus.RUNNING;
         } catch (ResourceAccessException e) {
-            return InstanceStatus.NOT_DEPLOYED;
+            return InstanceStatus.NOT_RUNNING;
         } catch (HttpClientErrorException e) {
             log.info("Instance {} (http: {}, status: {})", instance.getUrl(),
                 e.getStatusCode().toString(), InstanceStatus.ERROR);

@@ -1,7 +1,7 @@
-package nl.dtls.adminpanel.database.repository;
+package nl.dtls.adminpanel.database.repository.instance;
 
 import java.util.Optional;
-import nl.dtls.adminpanel.entity.Instance;
+import nl.dtls.adminpanel.entity.instance.Instance;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface InstanceRepository extends MongoRepository<Instance, String> {

@@ -4,6 +4,7 @@ import javax.annotation.PostConstruct;
 import nl.dtls.adminpanel.Profiles;
 import nl.dtls.adminpanel.database.migration.development.application.ApplicationMigration;
 import nl.dtls.adminpanel.database.migration.development.instance.InstanceMigration;
+import nl.dtls.adminpanel.database.migration.development.pipeline.PipelineMigration;
 import nl.dtls.adminpanel.database.migration.development.server.ServerMigration;
 import nl.dtls.adminpanel.database.migration.development.user.UserMigration;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +27,16 @@ public class MigrationRunner {
     @Autowired
     private InstanceMigration instanceMigration;
 
+    @Autowired
+    private PipelineMigration pipelineMigration;
+
     @PostConstruct
     public void run() {
         userMigration.runMigration();
         applicationMigration.runMigration();
         serverMigration.runMigration();
         instanceMigration.runMigration();
+        pipelineMigration.runMigration();
     }
 
 }

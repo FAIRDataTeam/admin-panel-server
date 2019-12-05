@@ -2,7 +2,7 @@ package nl.dtls.adminpanel.database.migration.development.user;
 
 import nl.dtls.adminpanel.database.migration.development.common.Migration;
 import nl.dtls.adminpanel.database.migration.development.user.data.UserFixtures;
-import nl.dtls.adminpanel.database.repository.UserRepository;
+import nl.dtls.adminpanel.database.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,7 @@
 package nl.dtls.adminpanel.api.controller.exception;
 
-import javax.servlet.http.HttpServletResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import javax.validation.ConstraintViolationException;
 import nl.dtls.adminpanel.api.dto.error.ErrorDTO;
 import nl.dtls.adminpanel.entity.exception.ForbiddenException;
 import nl.dtls.adminpanel.entity.exception.ResourceNotFoundException;
@@ -8,8 +9,10 @@ import nl.dtls.adminpanel.entity.exception.UnauthorizedException;
 import nl.dtls.adminpanel.entity.exception.ValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,10 +23,14 @@ public class ExceptionControllerAdvice {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(ExceptionControllerAdvice.class);
 
-    @ExceptionHandler({ValidationException.class})
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @ExceptionHandler({ValidationException.class, ConstraintViolationException.class,
+        MethodArgumentNotValidException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    public ErrorDTO handleBadRequest(Exception e, HttpServletResponse response) {
+    public ErrorDTO handleBadRequest(Exception e) {
         LOGGER.error(e.getMessage());
         return new ErrorDTO(HttpStatus.BAD_REQUEST, e.getMessage());
     }
@@ -31,7 +38,7 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler({BadCredentialsException.class, UnauthorizedException.class})
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ResponseBody
-    public ErrorDTO handleUnauthorized(Exception e, HttpServletResponse response) {
+    public ErrorDTO handleUnauthorized(Exception e) {
         LOGGER.error(e.getMessage());
         return new ErrorDTO(HttpStatus.UNAUTHORIZED, e.getMessage());
     }
@@ -39,7 +46,7 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler({ForbiddenException.class})
     @ResponseStatus(HttpStatus.FORBIDDEN)
     @ResponseBody
-    public ErrorDTO handleForbidden(Exception e, HttpServletResponse response) {
+    public ErrorDTO handleForbidden(Exception e) {
         LOGGER.error(e.getMessage());
         return new ErrorDTO(HttpStatus.FORBIDDEN, e.getMessage());
     }
@@ -47,8 +54,7 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler(ResourceNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
-    public ErrorDTO handleResourceNotFound(ResourceNotFoundException e,
-        HttpServletResponse response) {
+    public ErrorDTO handleResourceNotFound(ResourceNotFoundException e) {
         LOGGER.error(e.getMessage());
         return new ErrorDTO(HttpStatus.NOT_FOUND, e.getMessage());
     }
@@ -56,7 +62,7 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
-    public ErrorDTO handleInternalServerError(Exception e, HttpServletResponse response) {
+    public ErrorDTO handleInternalServerError(Exception e) {
         LOGGER.error(e.getMessage());
         return new ErrorDTO(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
     }

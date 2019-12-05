@@ -2,7 +2,7 @@ package nl.dtls.adminpanel.database.migration.development.instance;
 
 import nl.dtls.adminpanel.database.migration.development.common.Migration;
 import nl.dtls.adminpanel.database.migration.development.instance.data.InstanceFixtures;
-import nl.dtls.adminpanel.database.repository.InstanceRepository;
+import nl.dtls.adminpanel.database.repository.instance.InstanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

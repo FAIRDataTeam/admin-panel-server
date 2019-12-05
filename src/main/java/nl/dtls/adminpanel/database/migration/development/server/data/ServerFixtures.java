@@ -1,6 +1,6 @@
 package nl.dtls.adminpanel.database.migration.development.server.data;
 
-import nl.dtls.adminpanel.entity.Server;
+import nl.dtls.adminpanel.entity.server.Server;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 

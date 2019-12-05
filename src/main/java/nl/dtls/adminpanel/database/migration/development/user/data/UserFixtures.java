@@ -1,6 +1,6 @@
 package nl.dtls.adminpanel.database.migration.development.user.data;
 
-import nl.dtls.adminpanel.entity.User;
+import nl.dtls.adminpanel.entity.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

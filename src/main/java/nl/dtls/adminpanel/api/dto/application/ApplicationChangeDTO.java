@@ -21,6 +21,9 @@ public class ApplicationChangeDTO {
     protected String deployCommand;
 
     @NotBlank
+    protected String pauseCommand;
+
+    @NotBlank
     protected String disposeCommand;
 
     @NotNull

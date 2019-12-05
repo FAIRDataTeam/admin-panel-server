@@ -12,7 +12,7 @@ import java.util.Base64;
 import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
-import nl.dtls.adminpanel.entity.exception.ForbiddenException;
+import nl.dtls.adminpanel.entity.exception.UnauthorizedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -73,7 +73,7 @@ public class JwtService {
             Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
             return !claims.getBody().getExpiration().before(new Date());
         } catch (JwtException | IllegalArgumentException e) {
-            throw new ForbiddenException("Expired or invalid JWT token");
+            throw new UnauthorizedException("Expired or invalid JWT token");
         }
     }
 }

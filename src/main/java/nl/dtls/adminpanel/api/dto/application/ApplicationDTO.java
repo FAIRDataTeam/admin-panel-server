@@ -18,6 +18,8 @@ public class ApplicationDTO {
 
     protected String deployCommand;
 
+    protected String pauseCommand;
+
     protected String disposeCommand;
 
     protected List<TemplateDTO> templates;

@@ -8,7 +8,7 @@ import net.schmizz.sshj.SSHClient;
 import net.schmizz.sshj.transport.verification.PromiscuousVerifier;
 import net.schmizz.sshj.userauth.keyprovider.KeyProvider;
 import net.schmizz.sshj.xfer.InMemorySourceFile;
-import nl.dtls.adminpanel.entity.Server;
+import nl.dtls.adminpanel.entity.server.Server;
 import org.springframework.data.mongodb.gridfs.GridFsResource;
 import org.springframework.stereotype.Service;
 
