@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletResponse;
 import nl.dtls.adminpanel.api.dto.error.ErrorDTO;
 import nl.dtls.adminpanel.entity.exception.ForbiddenException;
 import nl.dtls.adminpanel.entity.exception.ResourceNotFoundException;
+import nl.dtls.adminpanel.entity.exception.UnauthorizedException;
 import nl.dtls.adminpanel.entity.exception.ValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +28,7 @@ public class ExceptionControllerAdvice {
         return new ErrorDTO(HttpStatus.BAD_REQUEST, e.getMessage());
     }
 
-    @ExceptionHandler({BadCredentialsException.class})
+    @ExceptionHandler({BadCredentialsException.class, UnauthorizedException.class})
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ResponseBody
     public ErrorDTO handleUnauthorized(Exception e, HttpServletResponse response) {

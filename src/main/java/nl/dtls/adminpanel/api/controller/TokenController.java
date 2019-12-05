@@ -3,7 +3,7 @@ package nl.dtls.adminpanel.api.controller;
 import javax.validation.Valid;
 import nl.dtls.adminpanel.api.dto.auth.AuthDTO;
 import nl.dtls.adminpanel.api.dto.auth.TokenDTO;
-import nl.dtls.adminpanel.service.jwt.JwtTokenProvider;
+import nl.dtls.adminpanel.service.jwt.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,7 +23,7 @@ public class TokenController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private JwtTokenProvider jwtTokenProvider;
+    private JwtService jwtService;
 
     @PostMapping
     public ResponseEntity<TokenDTO> generateToken(@RequestBody @Valid AuthDTO data) {
@@ -31,7 +31,7 @@ public class TokenController {
             String username = data.getEmail();
             authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(username, data.getPassword()));
-            String token = jwtTokenProvider.createToken(username);
+            String token = jwtService.createToken(username);
             return ResponseEntity.ok()
                 .body(new TokenDTO(token));
         } catch (AuthenticationException e) {
