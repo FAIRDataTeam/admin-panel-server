@@ -47,13 +47,16 @@ public class InstanceMapper {
             server);
     }
 
-    public Instance fromChangeDTO(InstanceChangeDTO dto, Instance instance) {
+    public Instance fromChangeDTO(InstanceChangeDTO dto, Instance instance, Server server,
+        Application application) {
         return instance
             .toBuilder()
             .name(dto.getName())
             .url(dto.getUrl())
             .path(dto.getPath())
             .variables(dto.getVariables())
+            .server(server)
+            .application(application)
             .build();
     }
 

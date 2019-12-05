@@ -29,8 +29,10 @@ public class InstanceChangeDTO {
     @NotNull
     private Map<String, Object> variables;
 
+    @NotBlank
     private String serverUuid;
 
+    @NotBlank
     private String applicationUuid;
 
 }

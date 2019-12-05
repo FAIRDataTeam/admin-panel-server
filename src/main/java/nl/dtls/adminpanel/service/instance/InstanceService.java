@@ -18,6 +18,7 @@ import nl.dtls.adminpanel.entity.Application;
 import nl.dtls.adminpanel.entity.Instance;
 import nl.dtls.adminpanel.entity.InstanceStatus;
 import nl.dtls.adminpanel.entity.Server;
+import nl.dtls.adminpanel.entity.exception.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -95,8 +96,21 @@ public class InstanceService {
         if (oInstance.isEmpty()) {
             return empty();
         }
+        Optional<Server> oServer = serverRepository.findByUuid(reqDto.getServerUuid());
+        if (oServer.isEmpty()) {
+            throw new ValidationException("Server doesn't exist");
+        }
+        Optional<Application> oApplication = applicationRepository
+            .findByUuid(reqDto.getApplicationUuid());
+        if (oApplication.isEmpty()) {
+            throw new ValidationException("Application doesn't exist");
+        }
+
         Instance instance = oInstance.get();
-        Instance updatedInstance = instanceMapper.fromChangeDTO(reqDto, instance);
+        Server server = oServer.get();
+        Application application = oApplication.get();
+        Instance updatedInstance = instanceMapper
+            .fromChangeDTO(reqDto, instance, server, application);
         instanceRepository.save(updatedInstance);
         return of(instanceMapper.toDTO(updatedInstance, computeInstanceStatus(updatedInstance)));
     }
