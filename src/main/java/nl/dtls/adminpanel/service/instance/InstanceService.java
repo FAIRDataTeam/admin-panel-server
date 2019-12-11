@@ -15,6 +15,7 @@ import nl.dtls.adminpanel.database.repository.application.ApplicationRepository;
 import nl.dtls.adminpanel.database.repository.instance.InstanceRepository;
 import nl.dtls.adminpanel.database.repository.server.ServerRepository;
 import nl.dtls.adminpanel.entity.application.Application;
+import nl.dtls.adminpanel.entity.exception.HttpRedirectException;
 import nl.dtls.adminpanel.entity.exception.ValidationException;
 import nl.dtls.adminpanel.entity.instance.Instance;
 import nl.dtls.adminpanel.entity.instance.InstanceStatus;
@@ -31,6 +32,8 @@ import org.springframework.web.client.RestTemplate;
 @Slf4j
 @Service
 public class InstanceService {
+
+    private static final int MAX_HTTP_REDIRECT_ATTEMPTS = 10;
 
     @Autowired
     private InstanceRepository instanceRepository;
@@ -126,10 +129,14 @@ public class InstanceService {
 
     private InstanceStatus computeInstanceStatus(Instance instance) {
         try {
-            doHttpCall(instance.getUrl());
+            doHttpCall(instance.getUrl(), 0);
             return InstanceStatus.RUNNING;
-        } catch (ResourceAccessException e) {
+        } catch (ResourceAccessException | HttpClientErrorException.NotFound e) {
             return InstanceStatus.NOT_RUNNING;
+        } catch (HttpRedirectException e) {
+            log.info("Instance {} ({}, status: {})", instance.getUrl(),
+                e.getMessage(), InstanceStatus.ERROR);
+            return InstanceStatus.ERROR;
         } catch (HttpClientErrorException e) {
             log.info("Instance {} (http: {}, status: {})", instance.getUrl(),
                 e.getStatusCode().toString(), InstanceStatus.ERROR);
@@ -137,13 +144,17 @@ public class InstanceService {
         }
     }
 
-    private ResponseEntity<String> doHttpCall(String url) {
+    private ResponseEntity<String> doHttpCall(String url, int attempts)
+        throws HttpRedirectException {
+        if (attempts >= MAX_HTTP_REDIRECT_ATTEMPTS) {
+            throw new HttpRedirectException("Too many HTTP redirect attempts");
+        }
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
         if (response.getStatusCode() == HttpStatus.FOUND
             || response.getStatusCode() == HttpStatus.MOVED_PERMANENTLY) {
             List<String> locations = response.getHeaders().get(HttpHeaders.LOCATION);
             if (locations != null && locations.size() == 1) {
-                return doHttpCall(locations.get(0));
+                return doHttpCall(locations.get(0), attempts + 1);
             }
         }
         return response;

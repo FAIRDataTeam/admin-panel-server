@@ -63,12 +63,12 @@ public class DeploymentService {
     }
 
     private void createDirectory(Pipeline pipeline) throws IOException {
-        log(pipeline, "1. Creating directory - started");
+        log(pipeline, "1. Create directory - started");
         Instance instance = pipeline.getInstance();
         Server server = instance.getServer();
         String createDirCommand = format("mkdir %s", instance.getPath());
         sshService.ssh(server, createDirCommand);
-        log(pipeline, "1. Creating directory - ended");
+        log(pipeline, "1. Create directory - ended");
     }
 
     private void copyBinaryFiles(Pipeline pipeline) throws IOException {
