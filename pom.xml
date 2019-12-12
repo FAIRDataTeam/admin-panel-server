@@ -26,6 +26,9 @@
         <jinja.version>2.0.5</jinja.version>
         <lombok.version>1.18.10</lombok.version>
         <swagger.version>2.9.2</swagger.version>
+
+        <!-- Plugins -->
+        <plugin.mavenlic.version>3.0</plugin.mavenlic.version>
     </properties>
 
     <dependencies>
@@ -130,6 +133,34 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>com.mycila</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>${plugin.mavenlic.version}</version>
+                <configuration>
+                    <header>com/mycila/maven/plugin/license/templates/MIT.txt</header>
+                    <properties>
+                        <owner>DTL</owner>
+                    </properties>
+                    <excludes>
+                        <exclude>.mvn/wrapper/MavenWrapperDownloader.java</exclude>
+                        <exclude>mvnw</exclude>
+                        <exclude>mvnw.cmd</exclude>
+                        <exclude>**/*.yml</exclude>
+                        <exclude>**/*.yml.example</exclude>
+                        <exclude>**/*.properties</exclude>
+                        <exclude>pom.xml</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>format</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
