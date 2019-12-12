@@ -11,7 +11,9 @@ import java.util.UUID;
 import nl.dtls.adminpanel.api.dto.application.ApplicationChangeDTO;
 import nl.dtls.adminpanel.api.dto.application.ApplicationDTO;
 import nl.dtls.adminpanel.database.repository.application.ApplicationRepository;
+import nl.dtls.adminpanel.database.repository.instance.InstanceRepository;
 import nl.dtls.adminpanel.entity.application.Application;
+import nl.dtls.adminpanel.service.instance.InstanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,12 @@ public class ApplicationService {
 
     @Autowired
     private ApplicationRepository applicationRepository;
+
+    @Autowired
+    private InstanceRepository instanceRepository;
+
+    @Autowired
+    private InstanceService instanceService;
 
     @Autowired
     private ApplicationMapper applicationMapper;
@@ -80,7 +88,10 @@ public class ApplicationService {
         if (oApplication.isEmpty()) {
             return false;
         }
-        applicationRepository.delete(oApplication.get());
+        Application application = oApplication.get();
+        instanceRepository.findByApplication(application)
+            .forEach(i -> instanceService.deleteInstance(i.getUuid()));
+        applicationRepository.delete(application);
         return true;
     }
 }

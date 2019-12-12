@@ -9,8 +9,10 @@ import java.util.Optional;
 import java.util.UUID;
 import nl.dtls.adminpanel.api.dto.server.ServerChangeDTO;
 import nl.dtls.adminpanel.api.dto.server.ServerDTO;
+import nl.dtls.adminpanel.database.repository.instance.InstanceRepository;
 import nl.dtls.adminpanel.database.repository.server.ServerRepository;
 import nl.dtls.adminpanel.entity.server.Server;
+import nl.dtls.adminpanel.service.instance.InstanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,12 @@ public class ServerService {
 
     @Autowired
     private ServerRepository serverRepository;
+
+    @Autowired
+    private InstanceRepository instanceRepository;
+
+    @Autowired
+    private InstanceService instanceService;
 
     @Autowired
     private ServerMapper serverMapper;
@@ -62,7 +70,10 @@ public class ServerService {
         if (oServer.isEmpty()) {
             return false;
         }
-        serverRepository.delete(oServer.get());
+        Server server = oServer.get();
+        instanceRepository.findByServer(server)
+            .forEach(i -> instanceService.deleteInstance(i.getUuid()));
+        serverRepository.delete(server);
         return true;
     }
 }

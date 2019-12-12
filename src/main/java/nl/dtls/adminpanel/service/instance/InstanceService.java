@@ -13,6 +13,7 @@ import nl.dtls.adminpanel.api.dto.instance.InstanceChangeDTO;
 import nl.dtls.adminpanel.api.dto.instance.InstanceDTO;
 import nl.dtls.adminpanel.database.repository.application.ApplicationRepository;
 import nl.dtls.adminpanel.database.repository.instance.InstanceRepository;
+import nl.dtls.adminpanel.database.repository.pipeline.PipelineRepository;
 import nl.dtls.adminpanel.database.repository.server.ServerRepository;
 import nl.dtls.adminpanel.entity.application.Application;
 import nl.dtls.adminpanel.entity.exception.HttpRedirectException;
@@ -20,6 +21,7 @@ import nl.dtls.adminpanel.entity.exception.ValidationException;
 import nl.dtls.adminpanel.entity.instance.Instance;
 import nl.dtls.adminpanel.entity.instance.InstanceStatus;
 import nl.dtls.adminpanel.entity.server.Server;
+import nl.dtls.adminpanel.service.pipeline.PipelineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -43,6 +45,12 @@ public class InstanceService {
 
     @Autowired
     private ApplicationRepository applicationRepository;
+
+    @Autowired
+    private PipelineRepository pipelineRepository;
+
+    @Autowired
+    private PipelineService pipelineService;
 
     @Autowired
     private InstanceMapper instanceMapper;
@@ -123,7 +131,10 @@ public class InstanceService {
         if (oInstance.isEmpty()) {
             return false;
         }
-        instanceRepository.delete(oInstance.get());
+        Instance instance = oInstance.get();
+        pipelineRepository.findByInstance(instance)
+            .forEach(p -> pipelineService.deletePipeline(p.getUuid()));
+        instanceRepository.delete(instance);
         return true;
     }
 
