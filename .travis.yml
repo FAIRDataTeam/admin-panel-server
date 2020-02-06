@@ -8,31 +8,34 @@ jdk:
   - openjdk11
 
 env:
-  - IMAGE="fairdata/admin-panel-server" \
-    IMAGE_TAG="$IMAGE:$TRAVIS_COMMIT" \
-    IMAGE_TAG_BRANCH="$IMAGE:"`echo $TRAVIS_BRANCH | sed 's#/#-#g'` \
+  - PRIVATE_IMAGE="$PRIVATE_DOCKER_REGISTRY/admin-panel-server" \
+    IMAGE="fairdata/admin-panel-server" \
+    IMAGE_TAG="$PRIVATE_IMAGE:$TRAVIS_COMMIT" \
+    IMAGE_TAG_BRANCH="$PRIVATE_IMAGE:"`echo $TRAVIS_BRANCH | sed 's#/#-#g'` \
     IMAGE_TAG_DEVELOP="$IMAGE:develop" \
     IMAGE_TAG_LATEST="$IMAGE:latest"
 
 before_install:
   # 1. Log to public Docker Hub
   - docker login -u "$PUBLIC_DOCKER_USER" -p "$PUBLIC_DOCKER_PASSWORD"
+  # 2. Log in to private Docker Registry
+  - docker login -u "$PRIVATE_DOCKER_USER" -p "$PRIVATE_DOCKER_PASSWORD" "$PRIVATE_DOCKER_REGISTRY"
 
 jobs:
   include:
     - stage: build
       script:
-        - mvn org.jacoco:jacoco-maven-plugin:prepare-agent test
+        - mvn --quiet org.jacoco:jacoco-maven-plugin:prepare-agent test
         - mvn --quiet --fail-fast -DskipTests package
         - docker pull $IMAGE_TAG_DEVELOP
         - docker build --cache-from $IMAGE_TAG_DEVELOP -t $IMAGE_TAG .
         - docker push $IMAGE_TAG
       after_success:
-        - mvn org.jacoco:jacoco-maven-plugin:report coveralls:report
+        - mvn --quiet org.jacoco:jacoco-maven-plugin:report coveralls:report
 
     - stage: tag
       if: (branch = develop) AND (NOT (type IN (pull_request)))
-      install: false
+      install: skip
       script:
         - docker pull $IMAGE_TAG
         - docker image tag $IMAGE_TAG $IMAGE_TAG_DEVELOP
@@ -40,7 +43,7 @@ jobs:
 
     - stage: tag
       if: (branch = master) AND (NOT (type IN (pull_request)))
-      install: false
+      install: skip
       script:
         - docker pull $IMAGE_TAG
         - docker image tag $IMAGE_TAG $IMAGE_TAG_LATEST
@@ -48,7 +51,7 @@ jobs:
 
     - stage: tag
       if: (type = push)
-      install: false
+      install: skip
       script:
         - docker pull $IMAGE_TAG
         - docker image tag $IMAGE_TAG $IMAGE_TAG_BRANCH
