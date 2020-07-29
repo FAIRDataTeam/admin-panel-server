@@ -41,7 +41,7 @@ services:
 
 ### Requirements
 
- - **Java** (recommended 1.8)
+ - **Java** (recommended JDK 14)
  - **Maven** (recommended 3.2.5 or higher)
  - **Docker** (recommended 17.09.0-ce or higher) - *for build of production image*
 

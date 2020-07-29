@@ -14,9 +14,9 @@ jobs:
       PRIVATE_IMAGE: ${{ secrets.PRIVATE_REGISTRY_URL }}/admin-panel-server
       TAG_DEVELOP: develop
       TAG_LATEST: latest
-      JDK_VERSION: 11
-      JDK_FILE: openjdk-11.0.2_linux-x64_bin.tar.gz
-      JDK_URL: https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz
+      JDK_VERSION: 14
+      JDK_FILE: openjdk-14.0.1_linux-x64_bin.tar.gz
+      JDK_URL: https://download.java.net/java/GA/jdk14.0.1/664493ef4a6946b186ff29eb326336a2/7/GPL/openjdk-14.0.1_linux-x64_bin.tar.gz
 
     services:
       mongo:
@@ -70,16 +70,6 @@ jobs:
     - name: Build package
       run: |
         mvn --quiet -B -U --fail-fast -DskipTests package
-
-#    - name: Report coverage
-#      continue-on-error: true
-#      run: |
-#        mvn --quiet -B -U -DrepoToken=$COVERALLS_TOKEN org.jacoco:jacoco-maven-plugin:report coveralls:report
-#        if [ $? -eq 0 ]; then
-#          echo "Coverage reported to Coveralls.io"
-#        fi
-#      env:
-#        COVERALLS_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
 
 # (4) -> Build Docker image
     - name: Docker build
