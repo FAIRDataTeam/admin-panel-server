@@ -24,7 +24,7 @@
         <mongobee.version>0.13</mongobee.version>
         <jwt.version>0.10.5</jwt.version>
         <sshj.version>0.27.0</sshj.version>
-        <jinja.version>2.0.5</jinja.version>
+        <jinja.version>2.5.4</jinja.version>
         <lombok.version>1.18.10</lombok.version>
         <swagger.version>2.9.2</swagger.version>
 
