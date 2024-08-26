@@ -26,7 +26,7 @@
         <sshj.version>0.27.0</sshj.version>
         <jinja.version>2.0.5</jinja.version>
         <lombok.version>1.18.10</lombok.version>
-        <swagger.version>2.9.2</swagger.version>
+        <swagger.version>2.10.0</swagger.version>
 
         <!-- Plugins -->
         <plugin.license.version>3.0</plugin.license.version>
